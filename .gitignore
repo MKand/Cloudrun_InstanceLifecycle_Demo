@@ -4,4 +4,4 @@ tfplan
 .terraform.lock.hcl
 .theia
 */.terraform/
-*.tfstate.*
+*.tfstate*

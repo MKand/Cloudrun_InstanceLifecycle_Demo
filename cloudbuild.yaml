@@ -13,4 +13,3 @@ images:
 - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/helloapi'
 - '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/visualizer'
 
-# gcloud builds submit --substitutions=_REGION=europe-west4,_PROJECT_ID=cloud-run-instances-demo,_REPOSITORY=hello .
