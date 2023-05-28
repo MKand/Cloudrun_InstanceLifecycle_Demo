@@ -1,0 +1,24 @@
+version: '3.1'
+services:
+  visualizer:
+    build: ./visualizer
+    ports:
+      - 8082:8080
+    environment:
+      PROJECT_ID: "cloud-run-instances-demo"
+      TOPIC_NAME: "hello-topic-local"
+      GOOGLE_APPLICATION_CREDENTIALS: "/keys/hello-topic-subscriber-key.json"
+    volumes:
+      - /usr/local/google/home/manasakandula/demos/keys:/keys
+      
+  helloapi:
+    build: ./helloapi
+    ports:
+      - 8081:8080
+    environment:
+      PROJECT_ID: "cloud-run-instances-demo"
+      TOPIC_NAME: "hello-topic-local"
+      MESSAGE_INTERVAL: "2"
+      GOOGLE_APPLICATION_CREDENTIALS: "/keys/hello-topic-publisher-key.json"
+    volumes:
+      - /usr/local/google/home/manasakandula/demos/keys:/keys

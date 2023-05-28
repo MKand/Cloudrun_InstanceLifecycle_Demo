@@ -5,6 +5,10 @@ terraform {
       version = "4.51.0"
     }
   }
+   backend "gcs" {
+   bucket  = "cloudrun-lifecycle-demo"
+   prefix  = "terraform/state"
+ }
 }
 
 provider "google" {
@@ -12,6 +16,7 @@ provider "google" {
   region      = var.region
   zone        = var.zone
 }
+
 
 resource "google_service_account" "sa-name-publisher" {
   account_id = "hello-topic-publisher"
