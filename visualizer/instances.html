@@ -1,0 +1,112 @@
+<html>
+<head>
+    <title>Instances</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <meta http-equiv="refresh" content="2" />
+    <style>
+    .instance_name {
+        color: navy;
+        text-align: center;
+        font-weight: bold;
+    }  
+    .idle {
+    	background-color: #FCC934;
+    }
+    .active {
+    	background-color: #5BB974;
+    }
+    .unknown {
+    	background-color: black;
+    }
+    .deleted {
+    	background-color: #F28B82;
+    }
+
+    .instance_text{
+        color: navy
+    }
+    .container{
+            width: 200px;
+            text-align: center;
+
+    }   
+    .legend{
+            height: 70px;
+            width: 8%;
+            text-align: center;
+    } 
+
+    .box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 2px;
+    }
+
+    .legendbox {
+        display: flex;
+        justify-content: flex-start;
+        gap: 20px 20px;
+    }
+    </style>
+</head>
+<body >
+    <nav class="lighten-1" style=" background-color:#174EA6" >
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center" style="text-transform: capitalize;">Instances</a>
+        </div>
+    </nav>
+    <div class="section" style="background-color: #E8EAED;">
+        <div class="legendbox">
+            <div class="idle legend card-panel"> 
+                Idle
+            </div>
+            <div class="active legend card-panel">
+             Active
+            </div>
+            <div class="deleted legend card-panel"> 
+            Terminated 
+            </div>
+        </div>
+    </div>    
+  <div class="divider"></div>
+<div class="box center">
+        {{range $key, $value := .Instances}}
+        {{if (eq $value.InstanceStatus 0)}}
+        <div class="unknown card container">
+            <p class="instance_name">{{$value.Name}} </p>
+            <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
+            <p class="instance_text">Rate of Work</p>
+            <meter id="WorkDone" value={{$value.WorkRate}} min="0" max="2000">/meter><br>
+        </div>
+            {{else if (eq $value.InstanceStatus 1)}}
+         <div class="idle card container">
+            <p class="instance_name">{{$value.Name}} </p>
+            <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
+            <p class="instance_text">Rate of Work</p>
+            <meter id="WorkDone" value={{$value.WorkRate}} min="0" max="2000">/meter><br>
+        </div>
+        {{else if (eq $value.InstanceStatus 2)}}
+        <div class="active card container">
+         <p class="instance_name">{{$value.Name}} </p>
+            <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
+            <p class="instance_text">Rate of Work</p>
+            <meter id="WorkDone" value={{$value.WorkRate}} min="0" max="2000">/meter><br>
+        </div>
+        {{else if  (eq $value.InstanceStatus 3)}}
+        <div class="deleted card container">
+            <p class="instance_name">{{$value.Name}} </p>
+            <p class="instance_text">Requests Handled: {{$value.RequestCount}}</p>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+
+    </ul>
+    </body>
+    </html>

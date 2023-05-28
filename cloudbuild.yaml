@@ -1,0 +1,16 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', 
+  '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/helloapi',
+  '--cache-from', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/helloapi:latest',
+   './helloapi' ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', 
+  '-t', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/visualizer', 
+  '--cache-from', '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/visualizer:latest',
+  './visualizer' ]
+images:
+- '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/helloapi'
+- '${_REGION}-docker.pkg.dev/${_PROJECT_ID}/${_REPOSITORY}/visualizer'
+
+# gcloud builds submit --substitutions=_REGION=europe-west4,_PROJECT_ID=cloud-run-instances-demo,_REPOSITORY=hello .
